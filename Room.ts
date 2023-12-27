@@ -8,7 +8,8 @@ const max: number = parseInt(process.env.MAX_CAPACITY || "2", 10);
 interface RoomState {
     id: string;
     users: number;
-}
+};
+
 
 export class Room {
     public roomsState: RoomState[] = [];
