@@ -15,5 +15,18 @@ function createMessage(text, ownMessage = false) {
   messageBox.appendChild(messageElement);
 }
 
-createMessage("Welcome to vahalla");
-createMessage("Who are you to talk to me", true);
+
+socket.on("receive-message", (message) => {
+    createMessage(message);
+  });
+  
+  sendButton.addEventListener("click", () => {
+    if (textBox.value != "") {
+      socket.emit("send-message", textBox.value);
+      createMessage(textBox.value, true);
+      textBox.value = "";
+    }
+  });
+
+  
+
