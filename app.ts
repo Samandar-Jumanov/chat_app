@@ -1,10 +1,13 @@
 import express , {Application} from "express"
 import * as http from 'http'
 import {Socket  , Server } from 'socket.io'
+import * as path from 'path';
 
 const app : Application = express();
 const server = http.createServer(app);
 
+//read file 
+app.use(express.static(path.join(__dirname, "public")));
 
 server.on("error", ()=>{
        console.log("server error")
@@ -25,7 +28,7 @@ io.on('connection', (socket : Socket)=>{
        socket.on("recieve-message", (data : string) =>{
               console.log(data)
        });
-       
+
 });
 
 
