@@ -10,7 +10,6 @@ interface RoomState {
     users: number;
 };
 
-
 export class Room {
     public roomsState: RoomState[] = [];
 
