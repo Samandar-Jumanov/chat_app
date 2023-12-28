@@ -1,3 +1,7 @@
+
+
+const socket = io("http://localhost:3001"); 
+
 const messageBox = document.querySelector("#messages");
 
 function createMessage(text, ownMessage = false) {
@@ -15,18 +19,17 @@ function createMessage(text, ownMessage = false) {
   messageBox.appendChild(messageElement);
 }
 
-
 socket.on("receive-message", (message) => {
-    createMessage(message);
-  });
-  
-  sendButton.addEventListener("click", () => {
-    if (textBox.value != "") {
-      socket.emit("send-message", textBox.value);
-      createMessage(textBox.value, true);
-      textBox.value = "";
-    }
-  });
+  createMessage(message);
+});
 
-  
+const sendButton = document.querySelector("#sendButton");
+const textBox = document.querySelector("#textBox");
 
+sendButton.addEventListener("click", () => {
+  if (textBox.value !== "") {
+    socket.emit("send-message", textBox.value);
+    createMessage(textBox.value, true);
+    textBox.value = "";
+  }
+});

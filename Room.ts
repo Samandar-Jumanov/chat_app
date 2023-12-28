@@ -15,7 +15,7 @@ export class Room {
     public roomsState: RoomState[] = [];
 
     constructor() {
-        this.roomsState = [ { id : "", users : 0}];
+        this.roomsState = [];
     }
 
     join(): Promise<string> {
@@ -37,13 +37,12 @@ export class Room {
         });
     }
 
-    leave(Id : string){
-         this.roomsState = this.roomsState.filter((room) =>{
-              if(room.id === Id  && this.roomsState.users <=1 ){
-                        return false;
-              } else {
-                this.roomsState.users--
-              }
-         })
+    leave(Id: string) {
+        this.roomsState = this.roomsState.map((room) => {
+            if (room.id === Id && room.users > 1) {
+                room.users--;
+            }
+            return room;
+        }).filter((room) => room.users > 0);
     }
 }
